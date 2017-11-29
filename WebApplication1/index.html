@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+    <script src="Scripts/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+    App<br/>
+<input type="text" id="searchID"/>
+    <button onclick="searchContact()">Search</button>    
+    <button onclick="addContact()">Add</button>    
+<script>
+    $(document)
+            .ready(function () {
+            $.getJSON("api/Contact",
+                function (result) {
+                    console.log('data');
+                    console.info(result);
+                });
+            });
+
+    function searchContact() {
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            url: 'api/Contact/' + $("#searchID").val(),
+            success: function(result) {
+                console.info(result);
+            }
+        });
+    }
+
+    function addContact() {
+
+        var newContact = {
+            "id": 12,
+            "FirstName": 'Tony',
+            "LastName": 'Stark'
+        };
+
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: 'api/Contact',
+            data: newContact,
+            success: function (result) {
+                console.info(result);
+            }
+        });
+    }
+
+</script>
+</body>
+</html>
